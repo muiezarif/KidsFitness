@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.muiezarif.kidsfitness">
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:name=".ApplicationClass"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activities.SelectCategoryActivity"></activity>
+        <activity android:name=".activities.ChildSettingsActivity" />
+        <activity
+            android:name=".activities.ChildPartLessonFullViewActivity"
+            android:configChanges="orientation|keyboardHidden|screenLayout|screenSize" />
+        <activity android:name=".activities.ChildLessonPartsActivity" />
+        <activity android:name=".activities.StudentOnboardingActivity" />
+        <activity android:name=".activities.CoachHomeActivity" />
+        <activity android:name=".activities.ChildHomeActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.CoachLoginRegisterActivity" />
+        <activity android:name=".activities.ChildLoginRegisterActivity" />
+        <activity android:name=".activities.SelectUserTypeActivity" />
+        <activity android:name=".activities.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

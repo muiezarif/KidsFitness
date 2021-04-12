@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".activities.CoachLoginRegisterActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_20ssp"
+        android:text="Coach"
+        android:textStyle="bold"
+        android:textColor="@color/text"
+        android:layout_marginBottom="@dimen/_15sdp"
+        app:layout_constraintStart_toStartOf="@+id/clCoachLoginRegister"
+        app:layout_constraintEnd_toEndOf="@+id/clCoachLoginRegister"
+        app:layout_constraintBottom_toTopOf="@+id/clCoachLoginRegister"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clCoachLoginRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvCoachLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:gravity="center"
+                android:text="@string/login"
+                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/textYellow"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvCoachRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:cardBackgroundColor="@color/purple"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvCoachLogin">
+
+            <TextView
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:gravity="center"
+                android:text="@string/create_account"
+                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/textYellow"/>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">KidsFitness</string>
+    <string name="you_are">You Are?</string>
+    <string name="student">Student</string>
+    <string name="coach">Coach</string>
+    <string name="login">Login</string>
+    <string name="create_account">Create Account</string>
+    <string name="student_login">Student Login</string>
+    <string name="coach_login">Coach Login</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="coach_register">Coach Register</string>
+    <string name="student_register">Student Register</string>
+</resources>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".activities.ChildHomeActivity">
+    <TextView
+        android:id="@+id/tvChildUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_15ssp"
+        android:textColor="@color/text"
+        android:textStyle="bold|italic"
+        android:layout_margin="@dimen/_10sdp"
+        android:text="Welcome,\n Demo user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <ImageView
+        android:id="@+id/ivChildSettings"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_margin="@dimen/_10sdp"
+        app:srcCompat="@drawable/settings_icon"
+        app:layout_constraintEnd_toStartOf="@+id/ivChildSignOut"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <ImageView
+        android:id="@+id/ivChildSignOut"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        app:srcCompat="@drawable/sign_out_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="@dimen/_10sdp"/>
+
+    <ImageView
+        android:id="@+id/ivChangeCategory"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        app:srcCompat="@drawable/category_icon"
+        android:layout_marginTop="@dimen/_100sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvChangeCategory"
+        app:layout_constraintEnd_toEndOf="@+id/tvChangeCategory"
+        app:layout_constraintBottom_toTopOf="@+id/tvChangeCategory"/>
+    <TextView
+        android:id="@+id/tvChangeCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_10ssp"
+        android:textColor="@color/textBlack"
+        android:text="Change Category"
+        android:layout_margin="@dimen/_5sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvChangeLevel"
+        app:layout_constraintTop_toTopOf="@+id/tvChangeLevel"
+        app:layout_constraintBottom_toBottomOf="@+id/tvChangeLevel"/>
+    <ImageView
+        android:id="@+id/ivChangeLevel"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        app:srcCompat="@drawable/level_icon"
+        app:layout_constraintStart_toStartOf="@+id/tvChangeLevel"
+        app:layout_constraintEnd_toEndOf="@+id/tvChangeLevel"
+        app:layout_constraintBottom_toTopOf="@+id/tvChangeLevel"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"/>
+    <TextView
+        android:id="@+id/tvChangeLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Level"
+        android:textSize="@dimen/_10ssp"
+        android:textColor="@color/black"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintStart_toEndOf="@+id/tvChangeCategory"
+        app:layout_constraintBottom_toTopOf="@+id/clLessonHeading"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clLessonHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvChangeLevel"
+        >
+
+    <TextView
+        android:id="@+id/tvStudentLessons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text"
+        android:text="Lessons"
+        android:textSize="@dimen/_20ssp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvChildLessons"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clLessonHeading"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

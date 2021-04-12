@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".activities.LoginActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp"
+        android:background="@drawable/card_background_type"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/tvLoginHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/coach_login"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <EditText
+            android:id="@+id/etLoginEmail"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:hint="@string/email"
+            android:textColor="@color/text"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/edittext_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLoginHeading"/>
+        <EditText
+            android:id="@+id/etLoginPassword"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColor="@color/text"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_12ssp"
+            android:background="@drawable/edittext_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etLoginEmail"/>
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:text="@string/login"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:textColor="@color/textYellow"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etLoginPassword"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ProgressBar
+        android:id="@+id/pbSignIn"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
