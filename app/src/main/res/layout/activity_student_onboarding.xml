@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/born_fearless_bg"
     tools:context=".activities.StudentOnboardingActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple"
+    android:background="@drawable/born_fearless_bg"
     tools:context=".activities.ChildLessonPartsActivity">
     <ImageView
         android:id="@+id/ivChildLessonPartsBack"
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/_20ssp"
-        android:text="Choose Part of Lesson"
+        android:text="@string/choose_part_of_lesson"
         android:textColor="@color/textWhite"
         android:layout_marginTop="@dimen/_20sdp"
         app:layout_constraintTop_toTopOf="parent"
