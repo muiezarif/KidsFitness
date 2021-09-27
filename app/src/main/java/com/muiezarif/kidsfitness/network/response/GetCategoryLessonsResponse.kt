@@ -36,9 +36,7 @@ data class GetCategoryLessonsResponseItem(
     val lesson_image: String,
     val lesson_level: String,
     val lesson_slug: String,
-    val title: String,
-    val chinese_title: String,
-    val german_title: String
+    val title: String
 )
 
 data class GetCategoryLessonsCategory(

@@ -1,7 +1,6 @@
 package com.muiezarif.kidsfitness.activities
 
 import android.content.Intent
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -17,7 +16,6 @@ import com.muiezarif.kidsfitness.utils.*
 import com.muiezarif.kidsfitness.utils.Constants.COACH_LOGIN
 import com.muiezarif.kidsfitness.utils.Constants.STUDENT_LOGIN
 import kotlinx.android.synthetic.main.activity_login.*
-import java.util.*
 import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
@@ -33,7 +31,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         setupViewModel()
         setListeners()
         getIntentData()
-        loadLocale()
     }
     private fun setupViewModel(){
         loginViewModel = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
@@ -64,12 +61,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             try {
                 when (intent?.getStringExtra("type")) {
                     COACH_LOGIN -> {
-                        sharedPrefsHelper.put(Constants.sp_username, response.result.user.user.username)
-                        sharedPrefsHelper.put(Constants.sp_token, response.result.user.token)
-                        sharedPrefsHelper.put(Constants.sp_email, response.result.user.user.email)
-                        sharedPrefsHelper.put(Constants.sp_uid, response.result.user.user.id)
                         sharedPrefsHelper.put(Constants.sp_userType, Constants.COACH_TYPE)
-                        navigate<SelectCoachCategoriesActivity>(finish = true,finishAll = true)
+                        navigate<CoachHomeActivity>(finish = true,finishAll = true)
                     }
                     STUDENT_LOGIN -> {
                         sharedPrefsHelper.userLoggedIn(true)
@@ -98,24 +91,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private fun setListeners(){
         btnLogin.setOnClickListener(this)
     }
-    private fun setLocale(lang:String){
-        val locale = Locale(lang)
-        Locale.setDefault(locale)
-        val config = Configuration()
-        config.locale = locale
-        resources.updateConfiguration(config,resources.displayMetrics)
-        sharedPrefsHelper.put(Constants.sp_language,lang)
-    }
-    private fun loadLocale(){
-        sharedPrefsHelper[Constants.sp_language, ""]?.let { setLocale(it) }
-    }
     private fun getIntentData() {
         when (intent?.getStringExtra("type")) {
             COACH_LOGIN -> {
-                tvLoginHeading.setText(resources.getString(R.string.coach_login))
+                tvLoginHeading.setText("Coach Login")
             }
             STUDENT_LOGIN ->{
-                tvLoginHeading.setText(resources.getString(R.string.student_login))
+                tvLoginHeading.setText("Student Login")
             }
         }
     }
@@ -127,12 +109,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     if (!etLoginPassword.text.toString().isNullOrEmpty()) {
                         when (intent?.getStringExtra("type")) {
                             COACH_LOGIN -> {
-                                var params = mapOf(
-                                    "email" to etLoginEmail.text.toString().trim(),
-                                    "password" to etLoginPassword.text.toString().trim()
-                                )
-                                loginViewModel.hitSignInApi(params,"")
-
+                                navigate<CoachHomeActivity>(finish = true,finishAll = true)
                             }
                             STUDENT_LOGIN -> {
                                 var params = mapOf(

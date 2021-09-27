@@ -31,18 +31,6 @@ class RegisterViewModel@Inject constructor(val repository: Repository): ViewMode
                 }
             ))
     }
-    fun hitCoachRegisterApi(parameters: Map<String, String>,lang:String?) {
-        disposables.add(repository.executeRegisterCoach(parameters)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { d -> responseLiveData.setValue(ApiResponse.loading()) }
-            .subscribe(
-                { result -> responseLiveData.setValue(ApiResponse.success(result)) },
-                { throwable ->
-                    responseLiveData.setValue(ApiResponse.error(throwable))
-                }
-            ))
-    }
 
     override fun onCleared() {
         super.onCleared()

@@ -1,6 +1,5 @@
 package com.muiezarif.kidsfitness.activities
 
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -26,9 +25,7 @@ import com.muiezarif.kidsfitness.utils.*
 import kotlinx.android.synthetic.main.activity_child_home.*
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_select_category.*
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class SelectCategoryActivity : AppCompatActivity(), View.OnClickListener, GenericAdapterCallback {
     @Inject
@@ -45,19 +42,8 @@ class SelectCategoryActivity : AppCompatActivity(), View.OnClickListener, Generi
         ApplicationClass.getAppComponent(this).doInjection(this)
         setContentView(R.layout.activity_select_category)
         setupViewModel()
-        loadLocale()
     }
-    private fun setLocale(lang:String){
-        val locale = Locale(lang)
-        Locale.setDefault(locale)
-        val config = Configuration()
-        config.locale = locale
-        resources.updateConfiguration(config,resources.displayMetrics)
-        sharedPrefsHelper.put(Constants.sp_language,lang)
-    }
-    private fun loadLocale(){
-        sharedPrefsHelper[Constants.sp_language, ""]?.let { setLocale(it) }
-    }
+
 
     private fun setupViewModel() {
         selectCategoryViewModel =
@@ -108,7 +94,7 @@ class SelectCategoryActivity : AppCompatActivity(), View.OnClickListener, Generi
 //            )
 //        )
         rvStudentCategories.setLayoutManager(GridLayoutManager(this, 2))
-        childCategoriesAdapter = CategoryRecyclerViewAdapter(childCategoriesList, this, this,sharedPrefsHelper[Constants.sp_language,""].toString())
+        childCategoriesAdapter = CategoryRecyclerViewAdapter(childCategoriesList, this, this)
         rvStudentCategories.adapter = childCategoriesAdapter
         childCategoriesAdapter.notifyDataSetChanged()
     }

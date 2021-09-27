@@ -3,18 +3,15 @@
     package="com.muiezarif.kidsfitness">
 
     <application
-        android:name=".ApplicationClass"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".activities.CoachOnBoardingActivity"></activity>
-        <activity android:name=".activities.SelectCoachCategoriesActivity" />
-        <activity android:name=".activities.ChapterVideosActivity" />
-        <activity android:name=".activities.SelectCategoryActivity" />
+        android:name=".ApplicationClass"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activities.SelectCategoryActivity"></activity>
         <activity android:name=".activities.ChildSettingsActivity" />
         <activity
             android:name=".activities.ChildPartLessonFullViewActivity"

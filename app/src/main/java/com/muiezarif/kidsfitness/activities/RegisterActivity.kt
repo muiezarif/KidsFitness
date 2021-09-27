@@ -1,6 +1,5 @@
 package com.muiezarif.kidsfitness.activities
 
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -18,9 +17,7 @@ import com.muiezarif.kidsfitness.network.response.RegisterResponse
 import com.muiezarif.kidsfitness.utils.*
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     @Inject
@@ -36,19 +33,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         setupViewModel()
         setListeners()
         getIntentData()
-        loadLocale()
     }
-    private fun setLocale(lang:String){
-        val locale = Locale(lang)
-        Locale.setDefault(locale)
-        val config = Configuration()
-        config.locale = locale
-        resources.updateConfiguration(config,resources.displayMetrics)
-        sharedPrefsHelper.put(Constants.sp_language,lang)
-    }
-    private fun loadLocale(){
-        sharedPrefsHelper[Constants.sp_language, ""]?.let { setLocale(it) }
-    }
+
     private fun setupViewModel() {
         registerViewModel =
             ViewModelProvider(this, viewModelFactory).get(RegisterViewModel::class.java)
@@ -78,22 +64,11 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     private fun renderSuccessResponse(response: RegisterResponse) {
         if (response.status) {
             try {
-                when (intent?.getStringExtra("type")) {
-                    Constants.COACH_LOGIN -> {
-                        val params = ArrayList<IntentParams>().apply {
-                            add(IntentParams("type", Constants.COACH_LOGIN))
-                            add(IntentParams("user", "Coach"))
-                        }
-                        navigate<LoginActivity>(params = params,finish = true)
-                    }
-                    else -> {
-                        val params = ArrayList<IntentParams>().apply {
-                            add(IntentParams("type", Constants.STUDENT_LOGIN))
-                            add(IntentParams("user", "Student"))
-                        }
-                        navigate<LoginActivity>(params = params,finish = true)
-                    }
+                val params = ArrayList<IntentParams>().apply {
+                    add(IntentParams("type", Constants.STUDENT_LOGIN))
+                    add(IntentParams("user", "Student"))
                 }
+                navigate<LoginActivity>(params = params,finish = true)
             } catch (e: Exception) {
                 logE("EXCEPTION" + e.message)
             }
@@ -113,10 +88,10 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     private fun getIntentData() {
         when (intent?.getStringExtra("type")) {
             Constants.COACH_REGISTER -> {
-                tvRegisterHeading.setText(resources.getString(R.string.coach_register))
+                tvRegisterHeading.setText("Coach Register")
             }
             Constants.STUDENT_REGISTER -> {
-                tvRegisterHeading.setText(resources.getString(R.string.student_register))
+                tvRegisterHeading.setText("Student Register")
             }
         }
     }
@@ -134,13 +109,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                                 if (etRegisterPassword.text.toString() == etRegisterConfirmPassword.text.toString()) {
                                     when (intent?.getStringExtra("type")) {
                                         Constants.COACH_REGISTER -> {
-                                            var params = mapOf(
-                                                "email" to etRegisterEmail.text.toString().trim(),
-                                                "username" to etRegisterUsername.text.toString().trim(),
-                                                "password" to etRegisterPassword.text.toString().trim(),
-                                                "age" to etRegisterUserAge.text.toString().trim()
-                                            )
-                                            registerViewModel.hitCoachRegisterApi(params, "")
+                                            toast(this, "Coming Soon")
                                         }
                                         Constants.STUDENT_REGISTER -> {
                                             var params = mapOf(

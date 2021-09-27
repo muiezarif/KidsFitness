@@ -21,9 +21,6 @@ class Repository(private val apiCallInterface: ApiInterface) {
     fun executeRegister(parameters: Map<String, String>): Observable<RegisterResponse> {
         return apiCallInterface.RegisterStudent(parameters)
     }
-    fun executeRegisterCoach(parameters: Map<String, String>): Observable<RegisterResponse> {
-        return apiCallInterface.RegisterCoach(parameters)
-    }
     fun executeStudentLessonCompleted(token: String?,parameters: Map<String, String>): Observable<Void> {
         return apiCallInterface.StudentLessonCompleted(BEARER+token,parameters)
     }
@@ -38,9 +35,6 @@ class Repository(private val apiCallInterface: ApiInterface) {
     }
     fun executeGetCategoriesLessonsPart(token: String?,category_slug:String?): Observable<GetLessonPartsResponse> {
         return apiCallInterface.GetCategoryLessonParts(token,category_slug)
-    }
-    fun executeGetLessonChapters(token: String?,category_slug:String?): Observable<GetLessonChaptersResponse> {
-        return apiCallInterface.GetLessonChapters(token,category_slug)
     }
 
 }

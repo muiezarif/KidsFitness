@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/_20ssp"
-        android:text="@string/choose_chapter"
+        android:text="@string/choose_part_of_lesson"
         android:textColor="@color/textWhite"
         android:layout_marginTop="@dimen/_20sdp"
         app:layout_constraintTop_toTopOf="parent"

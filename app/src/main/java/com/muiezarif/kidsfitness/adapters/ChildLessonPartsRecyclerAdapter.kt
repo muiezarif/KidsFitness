@@ -10,12 +10,10 @@ import com.muiezarif.kidsfitness.R
 import com.muiezarif.kidsfitness.listeners.GenericAdapterCallback
 import com.muiezarif.kidsfitness.models.LessonPartModel
 import com.muiezarif.kidsfitness.models.LessonsModel
-import com.muiezarif.kidsfitness.network.response.GetLessonChaptersResult
 import com.muiezarif.kidsfitness.network.response.GetLessonPartsResult
 import kotlinx.android.synthetic.main.item_lesson_part_view.view.*
-import kotlinx.android.synthetic.main.item_lessons_view.view.*
 
-class ChildLessonPartsRecyclerAdapter(var list: ArrayList<GetLessonChaptersResult>, var context: Context, var genericAdapterCallback: GenericAdapterCallback,var lang:String):
+class ChildLessonPartsRecyclerAdapter(var list: ArrayList<GetLessonPartsResult>, var context: Context, var genericAdapterCallback: GenericAdapterCallback):
     RecyclerView.Adapter<ChildLessonPartsRecyclerAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -29,22 +27,9 @@ class ChildLessonPartsRecyclerAdapter(var list: ArrayList<GetLessonChaptersResul
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         var model = list[position]
-        when(lang){
-            "en" -> {
-                holder.child_part_lesson_item.tvLessonPartName.setText(model.chapter_title)
-            }
-            "zh" -> {
-                holder.child_part_lesson_item.tvLessonPartName.setText(model.chapter_title_chinese)
-            }
-            "de" -> {
-                holder.child_part_lesson_item.tvLessonPartName.setText(model.chapter_title_german)
-            }
-            else -> {
-                holder.child_part_lesson_item.tvLessonPartName.setText(model.chapter_title)
-            }
-        }
+        holder.child_part_lesson_item.tvLessonPartName.setText(model.video_name)
         holder.child_part_lesson_item.setOnClickListener {
-            genericAdapterCallback.getClickedObjectWithViewHolder(model,holder,position,"ChildLessonChapterClick")
+            genericAdapterCallback.getClickedObjectWithViewHolder(model,holder,position,"ChildLessonPartClick")
         }
     }
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
