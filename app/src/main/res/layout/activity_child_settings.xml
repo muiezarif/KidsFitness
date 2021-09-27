@@ -9,6 +9,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/ivChildSettingsBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/back_arrow"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="10dp"/>
     <TextView
         android:id="@+id/tvChildSettingsHeding"
         android:layout_width="wrap_content"
@@ -34,7 +42,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Change Language"
+                android:text="@string/change_language"
                 android:layout_centerInParent="true"
                 android:textSize="@dimen/_14ssp"
                 android:textColor="@color/textYellow"/>

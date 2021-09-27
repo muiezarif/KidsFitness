@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_150sdp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="@dimen/_5sdp"
     app:cardCornerRadius="@dimen/_6sdp"
@@ -10,27 +10,51 @@
     android:id="@+id/cvChildLessonItem">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="5dp">
         <ImageView
             android:id="@+id/ivChildLessonImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100sdp"
-            android:layout_margin="@dimen/_15sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="5dp"
             android:src="@drawable/icon_sample_image"
             android:scaleType="fitXY"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/ivWhiteLogo"/>
         <TextView
             android:id="@+id/tvChildLessonName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:textSize="@dimen/_12ssp"
+            android:gravity="center"
+            android:layout_marginHorizontal="12dp"
             android:textColor="@color/textYellow"
             android:text="Demo Lesson"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivChildLessonImage"/>
-
+        <ImageView
+            android:id="@+id/ivWhiteLogo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/white_born_fearless_logo"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toTopOf="@+id/ivChildLessonImage"
+            app:layout_constraintStart_toStartOf="@+id/ivChildLessonImage"
+            app:layout_constraintEnd_toStartOf="@+id/ivChildLessonImage"
+            app:layout_constraintBottom_toTopOf="@+id/ivChildLessonImage"/>
+        <ImageView
+            android:id="@+id/ivShareBtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_baseline_share_24"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

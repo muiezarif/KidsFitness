@@ -5,18 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.muiezarif.kidsfitness.R
 import com.muiezarif.kidsfitness.listeners.GenericAdapterCallback
-import com.muiezarif.kidsfitness.models.LessonsModel
 import com.muiezarif.kidsfitness.network.response.GetCategoryLessonsResponseItem
 import com.muiezarif.kidsfitness.utils.GlideHelper
-import kotlinx.android.synthetic.main.item_lesson_part_view.view.*
 import kotlinx.android.synthetic.main.item_lessons_view.view.*
 
-class ChildLessonRecyclerAdapter(var list: ArrayList<GetCategoryLessonsResponseItem>, var context: Context, var genericAdapterCallback: GenericAdapterCallback,var lang:String):
-    RecyclerView.Adapter<ChildLessonRecyclerAdapter.ItemViewHolder>() {
+class CoachLessonRecyclerAdapter(var list: ArrayList<GetCategoryLessonsResponseItem>, var context: Context, var genericAdapterCallback: GenericAdapterCallback, var lang:String):
+    RecyclerView.Adapter<CoachLessonRecyclerAdapter.ItemViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -30,7 +27,7 @@ class ChildLessonRecyclerAdapter(var list: ArrayList<GetCategoryLessonsResponseI
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         var model = list[position]
-        GlideHelper.loadFull(holder.child_lesson_item.ivChildLessonImage,model.lesson_image,R.drawable.icon_sample_image)
+        GlideHelper.loadFull(holder.child_lesson_item.ivChildLessonImage,model.lesson_image, R.drawable.icon_sample_image)
         when(lang){
             "en" -> {
                 holder.child_lesson_item.tvChildLessonName.setText(model.title)
@@ -45,8 +42,11 @@ class ChildLessonRecyclerAdapter(var list: ArrayList<GetCategoryLessonsResponseI
                 holder.child_lesson_item.tvChildLessonName.setText(model.title)
             }
         }
-
-        holder.child_lesson_item.cvChildLessonItem.setOnClickListener {
+        holder.child_lesson_item.ivShareBtn.visibility = View.VISIBLE
+        holder.child_lesson_item.ivShareBtn.setOnClickListener {
+            genericAdapterCallback.getClickedObjectWithViewHolder(model,holder,position,"ChildLessonShareClick")
+        }
+        holder.child_lesson_item.ivChildLessonImage.setOnClickListener {
             genericAdapterCallback.getClickedObjectWithViewHolder(model,holder,position,"ChildLessonClick")
         }
     }

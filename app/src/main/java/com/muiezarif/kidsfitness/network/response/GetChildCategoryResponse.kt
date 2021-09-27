@@ -17,5 +17,7 @@ data class GetChildCategoryResponse(
 data class GetChildCategoryResponseItem(
     val category_image: String,
     val category_name: String,
+    val category_chinese: String,
+    val category_german: String,
     val category_slug: String
 )

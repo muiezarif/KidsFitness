@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/born_fearless_bg"
-    tools:context=".activities.ChildLessonPartsActivity">
+    tools:context=".activities.ChapterVideosActivity">
     <ImageView
-        android:id="@+id/ivChildLessonPartsBack"
+        android:id="@+id/ivChapterVideosBack"
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
         app:layout_constraintTop_toTopOf="parent"
@@ -16,23 +16,24 @@
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_15sdp"/>
     <TextView
-        android:id="@+id/tvPartLessonText"
+        android:id="@+id/tvChapterVideosText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/_20ssp"
-        android:text="@string/choose_chapter"
+        android:text="@string/choose_part_of_lesson"
         android:textColor="@color/textWhite"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/_20sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvChildLessonParts"
+        android:id="@+id/rvChapterVideosParts"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_10sdp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/tvPartLessonText"
+        app:layout_constraintTop_toBottomOf="@+id/ivChapterVideosBack"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

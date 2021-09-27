@@ -10,19 +10,20 @@ import com.muiezarif.kidsfitness.R
 import com.muiezarif.kidsfitness.utils.Constants
 import com.muiezarif.kidsfitness.utils.SharedPrefsHelper
 import com.muiezarif.kidsfitness.utils.navigate
+import kotlinx.android.synthetic.main.activity_coach_on_boarding.*
 import kotlinx.android.synthetic.main.activity_student_onboarding.*
 import java.util.*
 import javax.inject.Inject
 
-class StudentOnboardingActivity : AppCompatActivity(), View.OnClickListener {
+class CoachOnBoardingActivity : AppCompatActivity(), View.OnClickListener {
     @Inject
     lateinit var sharedPrefsHelper: SharedPrefsHelper
     private val arraySpinnerLevel = arrayOf("level-1", "level-2", "level-3")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ApplicationClass.getAppComponent(this).doInjection(this)
-        setContentView(R.layout.activity_student_onboarding)
-        btnStudentOnboardingDone.setOnClickListener(this)
+        setContentView(R.layout.activity_coach_on_boarding)
+        btnCoachOnboardingDone.setOnClickListener(this)
         init()
         loadLocale()
     }
@@ -41,19 +42,19 @@ class StudentOnboardingActivity : AppCompatActivity(), View.OnClickListener {
         val adapterLevel: ArrayAdapter<String>? = this.let {
             ArrayAdapter(it, android.R.layout.simple_spinner_item, arraySpinnerLevel)
         }
-        sStudentLevel.adapter = adapterLevel
+        sCoachLevel.adapter = adapterLevel
         adapterLevel?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     }
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.btnStudentOnboardingDone ->{
-                sharedPrefsHelper.put(Constants.sp_child_level_slug, sStudentLevel.selectedItem.toString())
+            R.id.btnCoachOnboardingDone ->{
+                sharedPrefsHelper.put(Constants.sp_child_level_slug, sCoachLevel.selectedItem.toString())
                 when (intent?.getStringExtra("type")) {
                     Constants.STUDENT_CHANGE_LEVEL -> {
-                        navigate<ChildHomeActivity>(finish = true)
+                        navigate<CoachHomeActivity>(finish = true)
                     }
                     else ->{
-                        navigate<ChildHomeActivity>(finishAll = true)
+                        navigate<CoachHomeActivity>(finishAll = true)
                     }
                 }
             }

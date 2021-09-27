@@ -8,16 +8,12 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.muiezarif.kidsfitness.R
 import com.muiezarif.kidsfitness.listeners.GenericAdapterCallback
-import com.muiezarif.kidsfitness.models.LessonPartModel
-import com.muiezarif.kidsfitness.models.LessonsModel
 import com.muiezarif.kidsfitness.network.response.GetLessonChaptersResult
 import com.muiezarif.kidsfitness.network.response.GetLessonPartsResult
 import kotlinx.android.synthetic.main.item_lesson_part_view.view.*
-import kotlinx.android.synthetic.main.item_lessons_view.view.*
 
-class ChildLessonPartsRecyclerAdapter(var list: ArrayList<GetLessonChaptersResult>, var context: Context, var genericAdapterCallback: GenericAdapterCallback,var lang:String):
-    RecyclerView.Adapter<ChildLessonPartsRecyclerAdapter.ItemViewHolder>() {
-
+class ChapterVideosRecyclerAdapter(var list: ArrayList<GetLessonPartsResult>, var context: Context, var genericAdapterCallback: GenericAdapterCallback, var lang:String):
+    RecyclerView.Adapter<ChapterVideosRecyclerAdapter.ItemViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val v = LayoutInflater.from(context).inflate(R.layout.item_lesson_part_view, parent, false)
         return ItemViewHolder(v)
@@ -31,16 +27,16 @@ class ChildLessonPartsRecyclerAdapter(var list: ArrayList<GetLessonChaptersResul
         var model = list[position]
         when(lang){
             "en" -> {
-                holder.child_part_lesson_item.tvLessonPartName.setText(model.chapter_title)
+                holder.child_part_lesson_item.tvLessonPartName.setText(model.video_name)
             }
             "zh" -> {
-                holder.child_part_lesson_item.tvLessonPartName.setText(model.chapter_title_chinese)
+                holder.child_part_lesson_item.tvLessonPartName.setText(model.video_name_chinese)
             }
             "de" -> {
-                holder.child_part_lesson_item.tvLessonPartName.setText(model.chapter_title_german)
+                holder.child_part_lesson_item.tvLessonPartName.setText(model.video_name_german)
             }
             else -> {
-                holder.child_part_lesson_item.tvLessonPartName.setText(model.chapter_title)
+                holder.child_part_lesson_item.tvLessonPartName.setText(model.video_name)
             }
         }
         holder.child_part_lesson_item.setOnClickListener {

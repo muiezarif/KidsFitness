@@ -1,5 +1,6 @@
 package com.muiezarif.kidsfitness.activities
 
+import android.content.res.Configuration
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,11 +23,17 @@ import com.muiezarif.kidsfitness.listeners.GenericAdapterCallback
 import com.muiezarif.kidsfitness.models.LessonPartVideo
 import com.muiezarif.kidsfitness.network.response.GetLessonPartsResult
 import com.muiezarif.kidsfitness.utils.Constants
+import com.muiezarif.kidsfitness.utils.SharedPrefsHelper
 import com.muiezarif.kidsfitness.utils.toast
 import kotlinx.android.synthetic.main.activity_child_part_lesson_full_view.*
+import java.util.*
+import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class ChildPartLessonFullViewActivity : AppCompatActivity(), View.OnClickListener,
     GenericAdapterCallback {
+    @Inject
+    lateinit var sharedPrefsHelper: SharedPrefsHelper
     private lateinit var pagerAdapter:LessonPartsPagerAdapter
     private var lessonPartsList:ArrayList<GetLessonPartsResult> = ArrayList()
     private var fullPlayed = false
@@ -41,6 +48,18 @@ class ChildPartLessonFullViewActivity : AppCompatActivity(), View.OnClickListene
         getIntentData()
         setListeners()
         hideNextPrevBtn()
+        loadLocale()
+    }
+    private fun setLocale(lang:String){
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        resources.updateConfiguration(config,resources.displayMetrics)
+        sharedPrefsHelper.put(Constants.sp_language,lang)
+    }
+    private fun loadLocale(){
+        sharedPrefsHelper[Constants.sp_language, ""]?.let { setLocale(it) }
     }
     private fun setListeners(){
         ivNextVideo.setOnClickListener(this)
@@ -81,10 +100,10 @@ class ChildPartLessonFullViewActivity : AppCompatActivity(), View.OnClickListene
     }
     private fun alertDialog(){
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Great!")
-        builder.setMessage("You are doing great! Just keep going")
+        builder.setTitle(resources.getString(R.string.text_great))
+        builder.setMessage(resources.getString(R.string.text_doing_great))
         builder.setIcon(android.R.drawable.btn_star)
-        builder.setPositiveButton("Continue"){ dialogInterface,which ->
+        builder.setPositiveButton(resources.getString(R.string.text_continue)){ dialogInterface,which ->
 //            player.reset()
             if (startVideoPosition <= (lessonPartsList.size-1)) {
                 if (startVideoPosition == (lessonPartsList.size-1)){
@@ -102,7 +121,7 @@ class ChildPartLessonFullViewActivity : AppCompatActivity(), View.OnClickListene
             hideNextPrevBtn()
             dialogInterface.dismiss()
         }
-        builder.setNegativeButton("Cancel"){dialogInterface,which ->
+        builder.setNegativeButton(resources.getString(R.string.text_cancel)){dialogInterface,which ->
             finish()
             dialogInterface.dismiss()
         }
@@ -134,7 +153,7 @@ class ChildPartLessonFullViewActivity : AppCompatActivity(), View.OnClickListene
 //                    bvpLessonPartPlayer.setSource(Uri.parse(lessonPartsList[startVideoPosition!!].video_url))
                     exoLessonPartPlayer.setSource(lessonPartsList[startVideoPosition].video_url)
                 }else{
-                    toast(this,"No Previous Video")
+                    toast(this,resources.getString(R.string.text_no_previous_video))
                 }
                 hideNextPrevBtn()
             }
@@ -151,7 +170,7 @@ class ChildPartLessonFullViewActivity : AppCompatActivity(), View.OnClickListene
 //                    bvpLessonPartPlayer.setSource(Uri.parse(lessonPartsList[startVideoPosition!!].video_url))
                     exoLessonPartPlayer.setSource(lessonPartsList[startVideoPosition].video_url)
                 }else{
-                    toast(this,"No Next Video")
+                    toast(this,resources.getString(R.string.text_no_next_video))
                 }
                 hideNextPrevBtn()
             }

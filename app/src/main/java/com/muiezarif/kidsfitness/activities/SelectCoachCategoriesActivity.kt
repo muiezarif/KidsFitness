@@ -4,33 +4,29 @@ import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.muiezarif.kidsfitness.ApplicationClass
 import com.muiezarif.kidsfitness.R
 import com.muiezarif.kidsfitness.activities.viewmodels.CategoryViewModel
-import com.muiezarif.kidsfitness.activities.viewmodels.LoginViewModel
 import com.muiezarif.kidsfitness.adapters.CategoryRecyclerViewAdapter
-import com.muiezarif.kidsfitness.adapters.ChildLessonRecyclerAdapter
 import com.muiezarif.kidsfitness.listeners.GenericAdapterCallback
-import com.muiezarif.kidsfitness.models.LessonsModel
 import com.muiezarif.kidsfitness.network.api.ApiResponse
 import com.muiezarif.kidsfitness.network.api.Status
 import com.muiezarif.kidsfitness.network.response.GetChildCategoryResponse
 import com.muiezarif.kidsfitness.network.response.GetChildCategoryResponseItem
-import com.muiezarif.kidsfitness.network.response.LoginResponse
 import com.muiezarif.kidsfitness.utils.*
-import kotlinx.android.synthetic.main.activity_child_home.*
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_coach_on_boarding.*
 import kotlinx.android.synthetic.main.activity_select_category.*
+import kotlinx.android.synthetic.main.activity_select_coach_categories.*
+import kotlinx.android.synthetic.main.activity_student_onboarding.*
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class SelectCategoryActivity : AppCompatActivity(), View.OnClickListener, GenericAdapterCallback {
+class SelectCoachCategoriesActivity : AppCompatActivity(), View.OnClickListener,
+    GenericAdapterCallback {
     @Inject
     lateinit var sharedPrefsHelper: SharedPrefsHelper
 
@@ -39,11 +35,10 @@ class SelectCategoryActivity : AppCompatActivity(), View.OnClickListener, Generi
     lateinit var selectCategoryViewModel: CategoryViewModel
     private var childCategoriesList: ArrayList<GetChildCategoryResponseItem> = ArrayList()
     private lateinit var childCategoriesAdapter: CategoryRecyclerViewAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ApplicationClass.getAppComponent(this).doInjection(this)
-        setContentView(R.layout.activity_select_category)
+        setContentView(R.layout.activity_select_coach_categories)
         setupViewModel()
         loadLocale()
     }
@@ -107,9 +102,9 @@ class SelectCategoryActivity : AppCompatActivity(), View.OnClickListener, Generi
 //                false
 //            )
 //        )
-        rvStudentCategories.setLayoutManager(GridLayoutManager(this, 2))
+        rvCoachCategories.setLayoutManager(GridLayoutManager(this, 2))
         childCategoriesAdapter = CategoryRecyclerViewAdapter(childCategoriesList, this, this,sharedPrefsHelper[Constants.sp_language,""].toString())
-        rvStudentCategories.adapter = childCategoriesAdapter
+        rvCoachCategories.adapter = childCategoriesAdapter
         childCategoriesAdapter.notifyDataSetChanged()
     }
 
@@ -130,10 +125,10 @@ class SelectCategoryActivity : AppCompatActivity(), View.OnClickListener, Generi
                 sharedPrefsHelper.put(Constants.sp_child_category_slug, clickedObj.category_slug)
                 when (intent?.getStringExtra("type")) {
                     Constants.STUDENT_CHANGE_CATEGORY -> {
-                        navigate<ChildHomeActivity>(finish = true)
+                        navigate<CoachHomeActivity>(finish = true)
                     }
                     else ->{
-                        navigate<StudentOnboardingActivity>(finish = false)
+                        navigate<CoachOnBoardingActivity>(finish = false)
                     }
                 }
 
@@ -150,5 +145,4 @@ class SelectCategoryActivity : AppCompatActivity(), View.OnClickListener, Generi
     override fun onResume() {
         super.onResume()
         selectCategoryViewModel.hitGetCategoryLessonsApi()
-    }
-}
+    }}

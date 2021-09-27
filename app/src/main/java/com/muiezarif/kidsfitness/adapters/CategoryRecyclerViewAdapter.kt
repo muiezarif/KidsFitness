@@ -13,7 +13,7 @@ import com.muiezarif.kidsfitness.network.response.GetChildCategoryResponseItem
 import com.muiezarif.kidsfitness.utils.GlideHelper
 import kotlinx.android.synthetic.main.item_lessons_view.view.*
 
-class CategoryRecyclerViewAdapter(var list: ArrayList<GetChildCategoryResponseItem>, var context: Context, var genericAdapterCallback: GenericAdapterCallback):
+class CategoryRecyclerViewAdapter(var list: ArrayList<GetChildCategoryResponseItem>, var context: Context, var genericAdapterCallback: GenericAdapterCallback,var lang:String):
     RecyclerView.Adapter<CategoryRecyclerViewAdapter.ItemViewHolder>() {
 
 
@@ -29,7 +29,20 @@ class CategoryRecyclerViewAdapter(var list: ArrayList<GetChildCategoryResponseIt
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         var model = list[position]
         GlideHelper.loadFull(holder.child_category_item.ivChildLessonImage,model.category_image,R.drawable.icon_sample_image)
-        holder.child_category_item.tvChildLessonName.setText(model.category_name)
+        when(lang){
+            "en" -> {
+                holder.child_category_item.tvChildLessonName.setText(model.category_name)
+            }
+            "zh" -> {
+                holder.child_category_item.tvChildLessonName.setText(model.category_chinese)
+            }
+            "de" -> {
+                holder.child_category_item.tvChildLessonName.setText(model.category_german)
+            }
+            else -> {
+                holder.child_category_item.tvChildLessonName.setText(model.category_name)
+            }
+        }
         holder.child_category_item.cvChildLessonItem.setOnClickListener {
             genericAdapterCallback.getClickedObjectWithViewHolder(model,holder,position,"CategoryClick")
         }
