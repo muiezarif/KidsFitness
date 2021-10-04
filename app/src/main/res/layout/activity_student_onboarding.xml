@@ -17,41 +17,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="@dimen/_20sdp">
 
-    <TextView
-        android:id="@+id/tvStudentLevelText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/_23ssp"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
-        android:text="Select Level"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="@dimen/_10sdp"/>
+        <TextView
+            android:id="@+id/tvStudentLevelText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_23ssp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:text="@string/select_level"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/_10sdp"/>
 
-    <LinearLayout
-        android:id="@+id/llStudentLevel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/grey_background"
-        android:orientation="horizontal"
-        android:textSize="@dimen/_13ssp"
-        app:layout_constraintTop_toBottomOf="@+id/tvStudentLevelText">
-
-        <Spinner
-            android:id="@+id/sStudentLevel"
+        <LinearLayout
+            android:id="@+id/llStudentLevel"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_weight="0.8" />
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/grey_background"
+            android:orientation="horizontal"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintTop_toBottomOf="@+id/tvStudentLevelText">
 
-    </LinearLayout>
+            <Spinner
+                android:id="@+id/sStudentLevel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="0.8" />
+
+        </LinearLayout>
         <Button
             android:id="@+id/btnStudentOnboardingDone"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_30sdp"
-            android:text="Done"
+            android:text="@string/done"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="@dimen/_12ssp"

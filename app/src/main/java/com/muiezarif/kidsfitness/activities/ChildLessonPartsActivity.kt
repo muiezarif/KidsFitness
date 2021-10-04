@@ -1,5 +1,6 @@
 package com.muiezarif.kidsfitness.activities
 
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,13 +21,13 @@ import com.muiezarif.kidsfitness.models.LessonPartModel
 import com.muiezarif.kidsfitness.models.LessonsModel
 import com.muiezarif.kidsfitness.network.api.ApiResponse
 import com.muiezarif.kidsfitness.network.api.Status
-import com.muiezarif.kidsfitness.network.response.GetCategoryLessonsResponse
-import com.muiezarif.kidsfitness.network.response.GetLessonPartsResponse
-import com.muiezarif.kidsfitness.network.response.GetLessonPartsResult
+import com.muiezarif.kidsfitness.network.response.*
 import com.muiezarif.kidsfitness.utils.*
 import kotlinx.android.synthetic.main.activity_child_home.*
 import kotlinx.android.synthetic.main.activity_child_lesson_parts.*
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class ChildLessonPartsActivity : AppCompatActivity(), View.OnClickListener, GenericAdapterCallback {
     @Inject
@@ -35,7 +36,7 @@ class ChildLessonPartsActivity : AppCompatActivity(), View.OnClickListener, Gene
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     lateinit var childLessonPartsViewModel: ChildLessonPartsViewModel
-    private var childLessonsPartsList: ArrayList<GetLessonPartsResult> = ArrayList()
+    private var childLessonsPartsList: ArrayList<GetLessonChaptersResult> = ArrayList()
     private lateinit var adapterChildLessonParts: ChildLessonPartsRecyclerAdapter
     private var lessonSlug = ""
     private val gson = Gson()
@@ -46,6 +47,18 @@ class ChildLessonPartsActivity : AppCompatActivity(), View.OnClickListener, Gene
         setupViewModel()
         getIntentData()
         ivChildLessonPartsBack.setOnClickListener(this)
+        loadLocale()
+    }
+    private fun setLocale(lang:String){
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        resources.updateConfiguration(config,resources.displayMetrics)
+        sharedPrefsHelper.put(Constants.sp_language,lang)
+    }
+    private fun loadLocale(){
+        sharedPrefsHelper[Constants.sp_language, ""]?.let { setLocale(it) }
     }
 
     private fun getIntentData() {
@@ -59,20 +72,20 @@ class ChildLessonPartsActivity : AppCompatActivity(), View.OnClickListener, Gene
     private fun setupViewModel() {
         childLessonPartsViewModel =
             ViewModelProvider(this, viewModelFactory).get(ChildLessonPartsViewModel::class.java)
-        childLessonPartsViewModel.categoryLessonPartsResponse()
-            .observe(this, Observer<ApiResponse<GetLessonPartsResponse>> { t ->
+        childLessonPartsViewModel.lessonChaptersResponse()
+            .observe(this, Observer<ApiResponse<GetLessonChaptersResponse>> { t ->
                 consumeResponse(t)
             })
     }
 
-    private fun consumeResponse(apiResponse: ApiResponse<GetLessonPartsResponse>?) {
+    private fun consumeResponse(apiResponse: ApiResponse<GetLessonChaptersResponse>?) {
         when (apiResponse?.status) {
             Status.LOADING -> {
 //                pbSignIn.visibility = View.VISIBLE
             }
             Status.SUCCESS -> {
 //                pbSignIn.visibility = View.GONE
-                renderSuccessResponse(apiResponse.data as GetLessonPartsResponse)
+                renderSuccessResponse(apiResponse.data as GetLessonChaptersResponse)
             }
             Status.ERROR -> {
 //                pbSignIn.visibility = View.GONE
@@ -84,7 +97,7 @@ class ChildLessonPartsActivity : AppCompatActivity(), View.OnClickListener, Gene
         }
     }
 
-    private fun renderSuccessResponse(response: GetLessonPartsResponse) {
+    private fun renderSuccessResponse(response: GetLessonChaptersResponse) {
         try {
             if (childLessonsPartsList.size > 0) {
                 childLessonsPartsList.removeAll(childLessonsPartsList)
@@ -99,7 +112,7 @@ class ChildLessonPartsActivity : AppCompatActivity(), View.OnClickListener, Gene
 
 
     private fun setChildLessonsPartRecyclerAdapter() {
-        adapterChildLessonParts = ChildLessonPartsRecyclerAdapter(childLessonsPartsList, this, this)
+        adapterChildLessonParts = ChildLessonPartsRecyclerAdapter(childLessonsPartsList, this, this,sharedPrefsHelper[Constants.sp_language,""].toString())
         rvChildLessonParts.adapter = adapterChildLessonParts
         adapterChildLessonParts.notifyDataSetChanged()
     }
@@ -123,26 +136,22 @@ class ChildLessonPartsActivity : AppCompatActivity(), View.OnClickListener, Gene
         callingID: String
     ) {
         when (callingID) {
-            "ChildLessonPartClick" -> {
-                clickedObj as GetLessonPartsResult
+            "ChildLessonChapterClick" -> {
+                clickedObj as GetLessonChaptersResult
                 position as Int
-                var videoList = gson.toJson(childLessonsPartsList)
                 val params = ArrayList<IntentParams>().apply {
-                    add(IntentParams("type", Constants.STUDENT_CAT_LESSON_PART_VIDEO))
+                    add(IntentParams("type", Constants.STUDENT_CAT_LESSON_PARTS))
                     add(IntentParams("check", "student_cat_lesson_parts"))
-                    add(IntentParams("lesson_part_video_clicked_position", position))
-                    add(IntentParams("lesson_part_video_clicked_slug", clickedObj.video_slug))
-                    add(IntentParams("lesson_part_video_clicked_url", clickedObj.video_url))
-                    add(IntentParams("lesson_part_video_list", videoList))
-                    Log.i("CHECKK", clickedObj.video_url)
+                    add(IntentParams("lesson_slug", clickedObj.chapter_slug))
                 }
-                navigate<ChildPartLessonFullViewActivity>(params = params, finish = false)
+                navigate<ChapterVideosActivity>(params = params,finish = false)
+
             }
         }
     }
 
     override fun onResume() {
-        childLessonPartsViewModel.hitGetCategoryLessonPartsApi(
+        childLessonPartsViewModel.hitGetLessonChaptersApi(
             sharedPrefsHelper[Constants.sp_token, ""],
             lessonSlug,
             ""

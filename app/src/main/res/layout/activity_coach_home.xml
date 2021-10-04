@@ -4,17 +4,132 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/born_fearless_bg"
     tools:context=".activities.CoachHomeActivity">
 
+    <RelativeLayout
+        android:id="@+id/rlCoachTopHeaderChildHome"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/white_born_fearless_logo"
+            android:layout_centerVertical="true"/>
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/born_fearless_text"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
     <TextView
-        android:id="@+id/tvComingSoon"
+        android:id="@+id/tvCoachUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Coming Soon"
-        android:textSize="32sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="@dimen/_15ssp"
+        android:textColor="@color/white"
+        android:textStyle="bold|italic"
+        android:layout_margin="@dimen/_10sdp"
+        android:text="Welcome,\n Demo user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlCoachTopHeaderChildHome"/>
+    <ImageView
+        android:id="@+id/ivCoachSettings"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_margin="@dimen/_10sdp"
+        app:srcCompat="@drawable/settings_icon"
+        app:layout_constraintEnd_toStartOf="@+id/ivCoachSignOut"
+        app:layout_constraintTop_toBottomOf="@+id/rlCoachTopHeaderChildHome"/>
+    <ImageView
+        android:id="@+id/ivCoachSignOut"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        app:srcCompat="@drawable/sign_out_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/rlCoachTopHeaderChildHome"
+        android:layout_margin="@dimen/_10sdp"/>
+
+    <ImageView
+        android:id="@+id/ivCoachChangeCategory"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        app:srcCompat="@drawable/category_icon"
+        android:layout_marginTop="@dimen/_100sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvCoachChangeCategory"
+        app:layout_constraintEnd_toEndOf="@+id/tvCoachChangeCategory"
+        app:layout_constraintBottom_toTopOf="@+id/tvCoachChangeCategory"/>
+    <TextView
+        android:id="@+id/tvCoachChangeCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/white"
+        android:background="@color/purple"
+        android:text="@string/change_category"
+        android:layout_margin="@dimen/_5sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvCoachChangeLevel"
+        app:layout_constraintTop_toTopOf="@+id/tvCoachChangeLevel"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCoachChangeLevel"/>
+    <ImageView
+        android:id="@+id/ivCoachChangeLevel"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        app:srcCompat="@drawable/level_icon"
+        app:layout_constraintStart_toStartOf="@+id/tvCoachChangeLevel"
+        app:layout_constraintEnd_toEndOf="@+id/tvCoachChangeLevel"
+        app:layout_constraintBottom_toTopOf="@+id/tvCoachChangeLevel"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"/>
+    <TextView
+        android:id="@+id/tvCoachChangeLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change_level"
+        android:background="@color/purple"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/white"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintStart_toEndOf="@+id/tvCoachChangeCategory"
+        app:layout_constraintBottom_toTopOf="@+id/clCoachLessonHeading"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clCoachLessonHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCoachChangeLevel"
+        >
+
+        <TextView
+            android:id="@+id/tvCoachStudentLessons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:background="@color/purple"
+            android:padding="@dimen/_5sdp"
+            android:text="@string/lessons"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCoachLessons"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clCoachLessonHeading"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
