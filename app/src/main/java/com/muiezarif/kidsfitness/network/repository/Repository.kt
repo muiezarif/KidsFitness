@@ -42,5 +42,11 @@ class Repository(private val apiCallInterface: ApiInterface) {
     fun executeGetLessonChapters(token: String?,category_slug:String?): Observable<GetLessonChaptersResponse> {
         return apiCallInterface.GetLessonChapters(token,category_slug)
     }
+    fun executeUserSubscription(authorizationToken: String?,parameters: Map<String, String>?,lang:String?): Observable<SubscriptionResponse> {
+        return apiCallInterface.UserSubscription(BEARER+authorizationToken,parameters)
+    }
+    fun executeUpdateUserInfo(authorizationToken: String?,id:Int?,parameters: Map<String, String?>,lang:String?):Observable<UpdateUserResponse>{
+        return apiCallInterface.UpdateUserInfo(BEARER+authorizationToken,id,parameters)
+    }
 
 }

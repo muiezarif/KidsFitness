@@ -24,6 +24,7 @@ import com.muiezarif.kidsfitness.network.api.ApiResponse
 import com.muiezarif.kidsfitness.network.api.Status
 import com.muiezarif.kidsfitness.network.response.GetChildCategoryResponse
 import com.muiezarif.kidsfitness.network.response.GetChildCategoryResponseItem
+import com.muiezarif.kidsfitness.network.response.SubscriptionResponse
 import com.muiezarif.kidsfitness.utils.*
 import kotlinx.android.synthetic.main.activity_coach_on_boarding.*
 import kotlinx.android.synthetic.main.activity_select_category.*
@@ -151,6 +152,10 @@ class SelectCoachCategoriesActivity : AppCompatActivity(), View.OnClickListener,
             .observe(this, Observer<ApiResponse<GetChildCategoryResponse>> { t ->
                 consumeResponse(t)
             })
+        selectCategoryViewModel.subscriptionResponse()
+            .observe(this, Observer<ApiResponse<SubscriptionResponse>> { t ->
+                consumeSubscriptionResponse(t)
+            })
     }
 
     private fun consumeResponse(apiResponse: ApiResponse<GetChildCategoryResponse>?) {
@@ -183,7 +188,28 @@ class SelectCoachCategoriesActivity : AppCompatActivity(), View.OnClickListener,
             toast(this, e.message.toString())
         }
     }
+    private fun consumeSubscriptionResponse(apiResponse: ApiResponse<SubscriptionResponse>?) {
+        when (apiResponse?.status) {
+            Status.LOADING -> {
+//                binding.pbSignIn.visibility = View.VISIBLE
+            }
+            Status.SUCCESS -> {
+//                binding.pbSignIn.visibility = View.GONE
+                renderSubscriptionSuccessResponse(apiResponse.data as SubscriptionResponse)
+            }
+            Status.ERROR -> {
+//                binding.pbSignIn.visibility = View.GONE
+                toast(this, apiResponse.error.toString())
+            }
+            else -> {
 
+            }
+        }
+    }
+
+    private fun renderSubscriptionSuccessResponse(subscriptionResponse: SubscriptionResponse) {
+//        context?.let { toast(it, subscriptionResponse.toString()) }
+    }
     private fun setCategoriesRecyclerAdapter() {
 //        rvStudentCategories.setLayoutManager(
 //            LinearLayoutManager(
@@ -288,10 +314,10 @@ class SelectCoachCategoriesActivity : AppCompatActivity(), View.OnClickListener,
                                 "purchase_token" to purchase.purchaseToken
                             )
 //                        context?.let { toast(it, parameters.toString()) }
-//                        addProductViewModel.hitUserSubscriptionApi(
-//                            sharedPrefsHelper[Constants.sp_token, ""],
-//                            parameters, sharedPrefsHelper[Constants.sp_language, ""]
-//                        )
+                        selectCategoryViewModel.hitUserSubscriptionApi(
+                            sharedPrefsHelper[Constants.sp_token, ""],
+                            parameters, sharedPrefsHelper[Constants.sp_language, ""]
+                        )
                     }
                 }
             }

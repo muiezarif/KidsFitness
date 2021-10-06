@@ -13,5 +13,7 @@ class Urls {
         const val GET_LESSON_PARTS = "lesson/{category_slug}/video/"
         const val GET_CATEGORIES = "category/"
         const val GET_LESSON_CHAPTERS = "chapter/{lesson_slug}"
+        const val CREATE_SUBSCRIPTION = "subscription/create/"
+        const val UPDATE_USER_INFO = "account/profile/update/{id}/"
     }
 }

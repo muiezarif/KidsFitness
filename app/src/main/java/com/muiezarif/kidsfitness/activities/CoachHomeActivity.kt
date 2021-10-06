@@ -24,6 +24,7 @@ import com.muiezarif.kidsfitness.network.api.ApiResponse
 import com.muiezarif.kidsfitness.network.api.Status
 import com.muiezarif.kidsfitness.network.response.GetCategoryLessonsResponse
 import com.muiezarif.kidsfitness.network.response.GetCategoryLessonsResponseItem
+import com.muiezarif.kidsfitness.network.response.UpdateUserResponse
 import com.muiezarif.kidsfitness.utils.*
 import kotlinx.android.synthetic.main.activity_child_home.*
 import kotlinx.android.synthetic.main.activity_coach_home.*
@@ -70,8 +71,40 @@ class CoachHomeActivity : AppCompatActivity(), View.OnClickListener, GenericAdap
             .observe(this, Observer<ApiResponse<GetCategoryLessonsResponse>> { t ->
                 consumeResponse(t)
             })
+        childHomeViewModel.updateUserInfoResponse()
+            .observe(this, Observer<ApiResponse<UpdateUserResponse>> { t ->
+                consumeUpdateUserInfoResponse(t)
+            })
     }
+    private fun consumeUpdateUserInfoResponse(apiResponse: ApiResponse<UpdateUserResponse>?) {
+        when (apiResponse?.status) {
 
+            Status.LOADING -> {}
+            Status.SUCCESS -> {
+                renderUpdateUserSuccessResponse(apiResponse.data as UpdateUserResponse)
+            }
+            Status.ERROR -> {
+                toast(this, apiResponse.data.toString())
+            }
+            else -> {
+
+            }
+        }
+    }
+    private fun renderUpdateUserSuccessResponse(response: UpdateUserResponse) {
+        if(response.status) {
+            try {
+//                toast(this, "CHECK")
+                sharedPrefsHelper.put(Constants.sp_premium_user,response.result.is_premium)
+            } catch (e: Exception) {
+
+            }
+//            toast(this, resources.getString(R.string.info_updated_msg_string))
+        }else{
+            toast(this,response.message.email.toString())
+        }
+
+    }
     private fun consumeResponse(apiResponse: ApiResponse<GetCategoryLessonsResponse>?) {
         when (apiResponse?.status) {
             Status.LOADING -> {

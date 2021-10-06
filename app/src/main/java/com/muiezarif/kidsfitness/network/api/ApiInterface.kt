@@ -30,5 +30,8 @@ interface ApiInterface {
     fun GetCategoryLessonParts(@Header("Authorization") token: String?,@Path("category_slug") category_slug:String?):Observable<GetLessonPartsResponse>
     @GET(Urls.GET_LESSON_CHAPTERS)
     fun GetLessonChapters(@Header("Authorization") token: String?,@Path("lesson_slug") category_slug:String?):Observable<GetLessonChaptersResponse>
-
+    @PATCH(Urls.UPDATE_USER_INFO)
+    fun UpdateUserInfo(@Header("Authorization") token: String?,@Path("uid") id:Int?,@Body params: Map<String, String?>):Observable<UpdateUserResponse>
+    @POST(Urls.CREATE_SUBSCRIPTION)
+    fun UserSubscription(@Header("Authorization") token: String?,@Body params: Map<String, String>?): Observable<SubscriptionResponse>
 }
