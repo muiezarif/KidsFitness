@@ -23,6 +23,7 @@ import javax.inject.Inject
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
     @Inject
     lateinit var sharedPrefsHelper: SharedPrefsHelper
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     lateinit var loginViewModel: LoginViewModel
@@ -35,7 +36,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         getIntentData()
         loadLocale()
     }
-    private fun setupViewModel(){
+
+    private fun setupViewModel() {
         loginViewModel = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
         loginViewModel.signInResponse().observe(this, Observer<ApiResponse<LoginResponse>> { t ->
             consumeResponse(t)
@@ -64,21 +66,31 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             try {
                 when (intent?.getStringExtra("type")) {
                     COACH_LOGIN -> {
-                        sharedPrefsHelper.put(Constants.sp_username, response.result.user.user.username)
-                        sharedPrefsHelper.put(Constants.sp_token, response.result.user.token)
-                        sharedPrefsHelper.put(Constants.sp_email, response.result.user.user.email)
-                        sharedPrefsHelper.put(Constants.sp_uid, response.result.user.user.id)
-                        sharedPrefsHelper.put(Constants.sp_userType, Constants.COACH_TYPE)
-                        navigate<SelectCoachCategoriesActivity>(finish = true,finishAll = true)
+                        if (!response.result.user.user.is_student) {
+                            sharedPrefsHelper.put(Constants.sp_username, response.result.user.user.username)
+                            sharedPrefsHelper.put(Constants.sp_token, response.result.user.token)
+                            sharedPrefsHelper.put(Constants.sp_email, response.result.user.user.email)
+                            sharedPrefsHelper.put(Constants.sp_uid, response.result.user.user.id)
+                            sharedPrefsHelper.put(Constants.sp_premium_user, response.result.user.user.is_premium)
+                            sharedPrefsHelper.put(Constants.sp_userType, Constants.COACH_TYPE)
+                            navigate<SelectCoachCategoriesActivity>(finish = true, finishAll = true)
+                        } else {
+                            toast(this,"Login with student account")
+                        }
                     }
                     STUDENT_LOGIN -> {
                         sharedPrefsHelper.userLoggedIn(true)
+                        if (response.result.user.user.is_student) {
                         sharedPrefsHelper.put(Constants.sp_username, response.result.user.user.username)
                         sharedPrefsHelper.put(Constants.sp_token, response.result.user.token)
                         sharedPrefsHelper.put(Constants.sp_email, response.result.user.user.email)
                         sharedPrefsHelper.put(Constants.sp_uid, response.result.user.user.id)
+                        sharedPrefsHelper.put(Constants.sp_premium_user, response.result.user.user.is_premium)
                         sharedPrefsHelper.put(Constants.sp_userType, Constants.STUDENT_TYPE)
-                        navigate<SelectCategoryActivity>(finish = true,finishAll = true)
+                        navigate<SelectCategoryActivity>(finish = true, finishAll = true)
+                        }else{
+                            toast(this,"Login with coach account")
+                        }
                     }
                 }
 
@@ -86,8 +98,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 logE("EXCEPTION" + e.message)
             }
             logE(response.result.user.user.toString())
-        }else{
-            toast(this,response.message)
+        } else {
+            toast(this, response.message)
         }
     }
 
@@ -95,34 +107,37 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         D.e("Login Activity", message)
     }
 
-    private fun setListeners(){
+    private fun setListeners() {
         btnLogin.setOnClickListener(this)
     }
-    private fun setLocale(lang:String){
+
+    private fun setLocale(lang: String) {
         val locale = Locale(lang)
         Locale.setDefault(locale)
         val config = Configuration()
         config.locale = locale
-        resources.updateConfiguration(config,resources.displayMetrics)
-        sharedPrefsHelper.put(Constants.sp_language,lang)
+        resources.updateConfiguration(config, resources.displayMetrics)
+        sharedPrefsHelper.put(Constants.sp_language, lang)
     }
-    private fun loadLocale(){
+
+    private fun loadLocale() {
         sharedPrefsHelper[Constants.sp_language, ""]?.let { setLocale(it) }
     }
+
     private fun getIntentData() {
         when (intent?.getStringExtra("type")) {
             COACH_LOGIN -> {
                 tvLoginHeading.setText(resources.getString(R.string.coach_login))
             }
-            STUDENT_LOGIN ->{
+            STUDENT_LOGIN -> {
                 tvLoginHeading.setText(resources.getString(R.string.student_login))
             }
         }
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.btnLogin ->{
+        when (v?.id) {
+            R.id.btnLogin -> {
                 if (!etLoginEmail.text.toString().isNullOrEmpty()) {
                     if (!etLoginPassword.text.toString().isNullOrEmpty()) {
                         when (intent?.getStringExtra("type")) {
@@ -131,7 +146,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                     "email" to etLoginEmail.text.toString().trim(),
                                     "password" to etLoginPassword.text.toString().trim()
                                 )
-                                loginViewModel.hitSignInApi(params,"")
+                                loginViewModel.hitSignInApi(params, "")
 
                             }
                             STUDENT_LOGIN -> {
@@ -139,14 +154,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                     "email" to etLoginEmail.text.toString().trim(),
                                     "password" to etLoginPassword.text.toString().trim()
                                 )
-                                loginViewModel.hitSignInApi(params,"")
+                                loginViewModel.hitSignInApi(params, "")
                             }
                         }
-                    }else{
-                        toast(this,"Please add password")
+                    } else {
+                        toast(this, "Please add password")
                     }
-                }else{
-                    toast(this,"Please add email")
+                } else {
+                    toast(this, "Please add email")
                 }
             }
         }
