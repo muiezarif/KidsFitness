@@ -8,6 +8,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -134,6 +135,6 @@ fun getCurrentTime():String{
 
 fun getFileBody(path: String?, fileName: String?): MultipartBody.Part {
     val file = File(path)
-    val requestFileProfile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-    return MultipartBody.Part.createFormData(fileName, file.name, requestFileProfile)
+    val requestFileProfile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
+    return MultipartBody.Part.createFormData(fileName.toString(), file.name, requestFileProfile)
 }

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -64,19 +65,24 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             try {
                 when (intent?.getStringExtra("type")) {
                     COACH_LOGIN -> {
-                        sharedPrefsHelper.put(Constants.sp_username, response.result.user.user.username)
-                        sharedPrefsHelper.put(Constants.sp_token, response.result.user.token)
-                        sharedPrefsHelper.put(Constants.sp_email, response.result.user.user.email)
-                        sharedPrefsHelper.put(Constants.sp_uid, response.result.user.user.id)
-                        sharedPrefsHelper.put(Constants.sp_userType, Constants.COACH_TYPE)
-                        navigate<SelectCoachCategoriesActivity>(finish = true,finishAll = true)
-                    }
-                    STUDENT_LOGIN -> {
+                        Log.i("CHECKK",response.result.toString())
                         sharedPrefsHelper.userLoggedIn(true)
                         sharedPrefsHelper.put(Constants.sp_username, response.result.user.user.username)
                         sharedPrefsHelper.put(Constants.sp_token, response.result.user.token)
                         sharedPrefsHelper.put(Constants.sp_email, response.result.user.user.email)
                         sharedPrefsHelper.put(Constants.sp_uid, response.result.user.user.id)
+                        sharedPrefsHelper.put(Constants.sp_premium_user, response.result.user.user.is_premium)
+                        sharedPrefsHelper.put(Constants.sp_userType, Constants.COACH_TYPE)
+                        navigate<SelectCoachCategoriesActivity>(finish = true,finishAll = true)
+                    }
+                    STUDENT_LOGIN -> {
+                        Log.i("CHECKK",response.result.toString())
+                        sharedPrefsHelper.userLoggedIn(true)
+                        sharedPrefsHelper.put(Constants.sp_username, response.result.user.user.username)
+                        sharedPrefsHelper.put(Constants.sp_token, response.result.user.token)
+                        sharedPrefsHelper.put(Constants.sp_email, response.result.user.user.email)
+                        sharedPrefsHelper.put(Constants.sp_uid, response.result.user.user.id)
+                        sharedPrefsHelper.put(Constants.sp_premium_user, response.result.user.user.is_premium)
                         sharedPrefsHelper.put(Constants.sp_userType, Constants.STUDENT_TYPE)
                         navigate<SelectCategoryActivity>(finish = true,finishAll = true)
                     }

@@ -59,6 +59,7 @@
             android:layout_width="@dimen/_200sdp"
             android:layout_height="@dimen/_30sdp"
             android:hint="@string/age"
+            android:inputType="text"
             android:textColor="@color/text"
             android:padding="@dimen/_5sdp"
             android:textSize="@dimen/_12ssp"

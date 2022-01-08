@@ -20,5 +20,6 @@ data class LoginUserX(
     val first_name: String,
     val id: Int,
     val last_name: String,
-    val username: String
+    val username: String,
+    val is_premium: Boolean
 )

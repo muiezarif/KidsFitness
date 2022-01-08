@@ -275,11 +275,11 @@ class CoachHomeActivity : AppCompatActivity(), View.OnClickListener, GenericAdap
                                 "username" to sharedPrefsHelper[Constants.sp_username, ""],
                                 "is_premium" to "false"
                             )
-//                        homeViewModel.hitUpdateUserInfoApi(
-//                            sharedPrefsHelper[Constants.sp_token, ""],
-//                            sharedPrefsHelper[Constants.sp_uid, 0]?.toInt(),
-//                            parameters,sharedPrefsHelper[Constants.sp_language,""]
-//                        )
+                        childHomeViewModel.hitUpdateUserInfoApi(
+                            sharedPrefsHelper[Constants.sp_token, ""],
+                            sharedPrefsHelper[Constants.sp_uid, 0]?.toInt(),
+                            parameters,sharedPrefsHelper[Constants.sp_language,""]
+                        )
                     }
                 } else {
                     Toast.makeText(

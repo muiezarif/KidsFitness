@@ -298,11 +298,7 @@ class SelectCategoryActivity : AppCompatActivity(), View.OnClickListener, Generi
                             "Purchase Acknowledged",
                             Toast.LENGTH_SHORT
                         ).show()
-                        Toast.makeText(
-                            this,
-                            "Now You Have Access To Add Products",
-                            Toast.LENGTH_SHORT
-                        ).show()
+
 
                         val parameters: Map<String, String> =
                             mapOf(

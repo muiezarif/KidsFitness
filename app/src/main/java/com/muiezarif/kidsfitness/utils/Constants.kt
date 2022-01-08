@@ -24,5 +24,5 @@ object Constants{
     const val sp_lng="sp_lng"
     const val sp_language="my_lang"
     const val sp_premium_user="is_premium"
-    const val sku_monthly_premium="kisszoo_premium_monthly"
+    const val sku_monthly_premium="kisszoo_premium_yearly"
 }

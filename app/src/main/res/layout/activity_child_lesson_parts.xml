@@ -20,10 +20,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/_20ssp"
+        android:padding="5dp"
+        android:background="@color/purple"
         android:text="@string/choose_chapter"
         android:textColor="@color/textWhite"
-        android:layout_marginTop="@dimen/_20sdp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/ivChildLessonPartsBack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
     <androidx.recyclerview.widget.RecyclerView
